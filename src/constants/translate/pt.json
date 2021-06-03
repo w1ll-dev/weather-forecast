@@ -1,0 +1,7 @@
+{
+  "appBarTitle": "Cidades",
+  "emptyCitiesList": {
+    "title": "Parece que você ainda não\nadicionou uma cidade",
+    "message": "Tente adicionar uma cidade usando o botão\nde busca"
+  }
+}

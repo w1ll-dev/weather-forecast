@@ -4,18 +4,9 @@ import { CitiesSave, CityDetails, Search } from '../pages';
 const { Navigator, Screen } = createStackNavigator();
 
 const StackRoutes = () => (
-  <Navigator
-    headerMode='none'
-    screenOptions={
-      {
-        // cardStyle: {
-        //   backgroundColor: colors.white,
-        // },
-      }
-    }
-  >
-    <Screen name='CitiesSave' component={CitiesSave} />
+  <Navigator headerMode='none'>
     <Screen name='Search' component={Search} />
+    <Screen name='CitiesSave' component={CitiesSave} />
     <Screen name='CityDetails' component={CityDetails} />
   </Navigator>
 );

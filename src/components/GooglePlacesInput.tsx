@@ -45,7 +45,9 @@ const GooglePlacesInput = () => {
           borderRadius: 0,
           backgroundColor: lightBlue,
           color: light,
-          flex: 1,
+        },
+        container: {
+          maxHeight: 56,
         },
         textInputContainer: {
           flexDirection: 'row',

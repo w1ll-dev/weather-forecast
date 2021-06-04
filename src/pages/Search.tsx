@@ -1,15 +1,26 @@
-import React from 'react';
-import { Text } from 'react-native';
-import GooglePlacesInput from '../components/GooglePlacesInput';
-import { Container } from '../styles/components/common';
+import React, { useState } from 'react';
+import { Container } from '../styles/components/Common';
+import { Content } from '../styles/pages/Search';
+import { SearchCityCard, SearchInput } from '../components';
+import { pt } from '../constants/translate';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 
 export function Search() {
+  const [textSearch, setTextSearch] = useState('');
+
   return (
-    <Container>
-      <GooglePlacesInput />
-      <Container style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Search</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <SearchInput
+          placeholder={pt.searchCityInputPlaceHolder}
+          onChangeText={setTextSearch}
+          blurOnSubmit={true}
+          value={textSearch}
+        />
+        <Content>
+          <SearchCityCard cityName={'Fortaleza'} country={'Brasil'} />
+        </Content>
       </Container>
-    </Container>
+    </TouchableWithoutFeedback>
   );
 }

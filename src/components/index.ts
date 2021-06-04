@@ -1,4 +1,4 @@
-import { GooglePlacesInput } from './GooglePlacesInput';
 import { SearchCityCard } from './SearchCityCard';
+import { SearchInput } from './SearchInput';
 
-export { GooglePlacesInput, SearchCityCard };
+export { SearchCityCard, SearchInput };

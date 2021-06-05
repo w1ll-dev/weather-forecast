@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container } from '../styles/components/Common';
 import { Content } from '../styles/pages/Search';
 import { SearchCityCard, SearchInput } from '../components';
@@ -8,6 +8,7 @@ import { usePlacesAutocomplete } from '../hooks/usePlacesAutocomplete';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/core';
 import { pages } from '../constants';
+import { savePlaceOnStorage } from '../libs';
 
 export function Search() {
   const { searchValue, setSearchValue, places } = usePlacesAutocomplete();
@@ -16,6 +17,13 @@ export function Search() {
   function handleClear() {
     setSearchValue('');
     navigation.navigate(pages.CITIES_SAVE);
+  }
+
+  async function handleSavePlace(cityPlaceId: string) {
+    const citySelected = places.filter(
+      (city) => cityPlaceId === city.place_id
+    )[0];
+    await savePlaceOnStorage(citySelected);
   }
 
   return (
@@ -43,6 +51,7 @@ export function Search() {
                   cityName={item.city}
                   country={item.country}
                   key={item.place_id}
+                  saveCity={() => handleSavePlace(item.place_id)}
                 />
               )}
             />

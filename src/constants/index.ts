@@ -1,7 +1,7 @@
 import { Idiom } from './protocols';
 import { idiom, pt } from './translate';
 import { GOOGLE_KEY, OPEN_WEATHER_KEY } from './keys';
-import { pages } from './pages';
+import { pages } from './Pages';
 import {
   PlaceAutocompleteApiResponseProtocol,
   PlaceAutocompleteProtocol,

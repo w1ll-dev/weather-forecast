@@ -1,0 +1,5 @@
+export enum pages {
+  SEARCH = 'SEARCH',
+  CITIES_SAVE = 'CITIES_SAVE',
+  CITY_DETAILS = 'CITY_DETAILS',
+}

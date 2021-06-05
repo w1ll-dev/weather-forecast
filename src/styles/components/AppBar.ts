@@ -23,6 +23,7 @@ export const SearchIcon = styled(Ionicons).attrs(() => ({
   size: 20,
   color: colors.light,
 }))`
+  margin-right: ${horizontalPixel(3.5)}px;
   font-family: ${fonts.heading};
   color: ${colors.white};
   font-size: ${verticalPixel(20)}px;

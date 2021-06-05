@@ -14,20 +14,16 @@ interface SearchInputProps extends TextInputProps {
   blurOnSubmit: boolean;
   value: string;
   onChangeText: any;
+  handleClear: any;
 }
 
 export function SearchInput({
+  handleClear,
   placeholder,
   onChangeText,
   blurOnSubmit,
   value,
 }: SearchInputProps) {
-  const navigation = useNavigation();
-
-  function handleClear() {
-    navigation.navigate('CitiesSave');
-  }
-
   return (
     <Wrapper>
       <StyledSearchInput

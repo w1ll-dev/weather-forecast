@@ -13,6 +13,8 @@ export async function savePlaceOnStorage(
       ? (JSON.parse(data) as PlaceAutocompleteProtocol)
       : {};
 
+    if (oldCities.hasOwnProperty(place.place_id)) return;
+
     const newCity = {
       [place.place_id]: {
         data: place,

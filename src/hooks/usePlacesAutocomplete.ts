@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { getPlacesAutocomplete } from '../repository';
-import { PlaceAutocomplete } from '../repository/entities';
+import { PlaceAutocomplete } from '../constants/entities';
 import { useDebounce } from './useDebounce';
 
 export function usePlacesAutocomplete() {

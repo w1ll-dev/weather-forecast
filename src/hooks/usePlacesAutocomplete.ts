@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getPlacesAutocomplete } from '../repository';
 import { PlaceAutocomplete } from '../constants/entities';
 import { useDebounce } from './useDebounce';

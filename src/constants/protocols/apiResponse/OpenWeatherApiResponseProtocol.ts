@@ -1,3 +1,6 @@
+interface Weather {
+  description: string;
+}
 interface DailyWeather {
   dt: number;
   temp: {
@@ -5,9 +8,7 @@ interface DailyWeather {
     min: number;
     max: number;
   };
-  weather: {
-    description: string;
-  };
+  weather: Weather[];
 }
 
 export interface OpenWeatherApiResponseProtocol {

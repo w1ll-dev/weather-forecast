@@ -1,8 +1,8 @@
 import AppLoading from 'expo-app-loading';
 import React, { useEffect, useState } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import { SearchCityCard } from '../components';
 import AppBar from '../components/AppBar';
+import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
 import { PlaceAutocomplete } from '../constants';
 import { loadStoragePlaces } from '../libs';
 import { getPlaceWeatherForecast } from '../repository';
@@ -37,15 +37,14 @@ export function CitiesSave() {
             showsVerticalScrollIndicator={false}
             numColumns={1}
             keyExtractor={({ place_id }) => place_id}
-            initialNumToRender={12}
-            maxToRenderPerBatch={12}
-            windowSize={5}
             renderItem={({ item }: { item: PlaceAutocomplete }) => (
-              <SearchCityCard
+              <CityCurrentWeatherCard
                 cityName={item.city}
                 country={item.country}
-                key={item.place_id}
-                saveCity={() => {}}
+                weatherDescription={item.placeWeatherForecast[0].description}
+                minTemp={item.placeWeatherForecast[0].minTemp}
+                maxTemp={item.placeWeatherForecast[0].maxTemp}
+                temperature={item.placeWeatherForecast[0].dayTemp}
               />
             )}
           />

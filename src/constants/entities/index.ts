@@ -1,3 +1,4 @@
 import { PlaceAutocomplete } from './PlaceAutocomplete';
+import { PlaceWeatherForecast } from './PlaceWeatherForecast';
 
-export { PlaceAutocomplete };
+export { PlaceAutocomplete, PlaceWeatherForecast };

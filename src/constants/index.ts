@@ -7,7 +7,9 @@ import { ServerError, StorageError } from './errors';
 import {
   PlaceAutocompleteApiResponseProtocol,
   PlaceAutocompleteProtocol,
+  PlaceDetailsApiResponseProtocol,
   StorageCityProtocol,
+  OpenWeatherApiResponseProtocol,
 } from './protocols';
 
 export {
@@ -18,7 +20,9 @@ export {
   OPEN_WEATHER_KEY,
   pages,
   PlaceAutocompleteApiResponseProtocol,
+  OpenWeatherApiResponseProtocol,
   PlaceAutocompleteProtocol,
+  PlaceDetailsApiResponseProtocol,
   PlaceAutocomplete,
   StorageCityProtocol,
   ServerError,

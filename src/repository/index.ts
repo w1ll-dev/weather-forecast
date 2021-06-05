@@ -3,7 +3,7 @@ import { googleApibaseUrl } from './constants';
 import {
   PlaceAutocompleteApiResponseProtocol,
   PlaceAutocompleteProtocol,
-} from './protocols';
+} from '../constants/protocols';
 import { GOOGLE_SEARCH_API_KEY } from '@env';
 import { PlaceAutocomplete } from './entities';
 import { ServerError } from './errors/ServerError';

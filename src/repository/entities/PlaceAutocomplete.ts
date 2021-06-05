@@ -1,4 +1,4 @@
-import { PlaceAutocompleteProtocol } from '../protocols';
+import { PlaceAutocompleteProtocol } from '../../constants';
 
 export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   constructor(

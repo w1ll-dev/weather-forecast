@@ -5,8 +5,8 @@ import {
   PlaceAutocompleteProtocol,
 } from '../constants/protocols';
 import { GOOGLE_SEARCH_API_KEY } from '@env';
-import { PlaceAutocomplete } from './entities';
-import { ServerError } from './errors/ServerError';
+import { PlaceAutocomplete } from '../constants/entities';
+import { ServerError } from '../constants/errors/ServerError';
 
 export async function getPlacesAutocomplete(
   input: string

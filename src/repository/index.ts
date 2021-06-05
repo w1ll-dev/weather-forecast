@@ -1,19 +1,20 @@
 import { requestAdapter } from './adapters/requestAdapter';
-import { googleApibaseUrl, openweatherApibaseUrl } from './constants';
-import { OPEN_WEATHER_KEY } from '../constants';
 import {
+  OPEN_WEATHER_KEY,
+  GOOGLE_KEY,
   PlaceAutocompleteApiResponseProtocol,
-  PlaceAutocompleteProtocol,
-} from '../constants/protocols';
-import { GOOGLE_SEARCH_API_KEY } from '@env';
+  ServerError,
+  OpenWeatherApiResponseProtocol,
+  PlaceDetailsApiResponseProtocol,
+} from '../constants';
 import { PlaceAutocomplete } from '../constants/entities';
-import { ServerError } from '../constants/errors/ServerError';
+import { googleApibaseUrl, openweatherApibaseUrl } from './constants';
 
 export async function getPlacesAutocomplete(
   input: string
-): Promise<PlaceAutocompleteProtocol[]> {
+): Promise<PlaceAutocomplete[]> {
   const inputFixed = input.replace(/\s+/g, '+');
-  const query = `${googleApibaseUrl}/autocomplete/json?input=${inputFixed}&types=(cities)&language=pt-br&key=${GOOGLE_SEARCH_API_KEY}`;
+  const query = `${googleApibaseUrl}/autocomplete/json?input=${inputFixed}&types=(cities)&language=pt-br&key=${GOOGLE_KEY}`;
   try {
     const response: PlaceAutocompleteApiResponseProtocol = await requestAdapter(
       query
@@ -33,26 +34,42 @@ export async function getPlacesAutocomplete(
   }
 }
 
-export async function getPlaceWeather(
-  lat: string,
-  lon: string
-): Promise<PlaceAutocompleteProtocol[]> {
-  const query = `${openweatherApibaseUrl}?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=metric&&lang=pt&appid=${OPEN_WEATHER_KEY}`;
-
+async function getPlaceLatLng(
+  place: PlaceAutocomplete
+): Promise<PlaceAutocomplete> {
+  const query = `${googleApibaseUrl}/details/json?place_id=${place.place_id}&key=${GOOGLE_KEY}`;
   try {
-    const response: PlaceAutocompleteApiResponseProtocol = await requestAdapter(
+    const response: PlaceDetailsApiResponseProtocol = await requestAdapter(
       query
     );
-    const { predictions } = response;
-    const placesList = predictions.map(
-      ({ terms, place_id }) =>
-        new PlaceAutocomplete(
-          place_id,
-          terms[0].value,
-          terms[terms.length - 1].value
-        )
+    const {
+      result: {
+        geometry: {
+          location: { lat, lng },
+        },
+      },
+    } = response;
+
+    place.addLat(lat);
+    place.addLng(lng);
+
+    return place;
+  } catch (error) {
+    throw new ServerError();
+  }
+}
+
+export async function getPlaceWeatherForecast(
+  place: PlaceAutocomplete
+): Promise<PlaceAutocomplete> {
+  const placeWithCoordinates = await getPlaceLatLng(place);
+  const query = `${openweatherApibaseUrl}?lat=${placeWithCoordinates.lat}&lon=${placeWithCoordinates.lng}&exclude=minutely,hourly,alerts&units=metric&&lang=pt&appid=${OPEN_WEATHER_KEY}`;
+  try {
+    const response: OpenWeatherApiResponseProtocol = await requestAdapter(
+      query
     );
-    return placesList;
+    placeWithCoordinates.addPlaceWeatherForecast(response);
+    return placeWithCoordinates;
   } catch (error) {
     throw new ServerError();
   }

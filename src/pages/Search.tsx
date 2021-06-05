@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '../styles/components/Common';
-import { Content } from '../styles/pages/Search';
+import { Content } from '../styles/components/Common';
 import { SearchCityCard, SearchInput } from '../components';
 import { pt } from '../constants/translate';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';

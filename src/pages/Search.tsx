@@ -4,23 +4,51 @@ import { Content } from '../styles/pages/Search';
 import { SearchCityCard, SearchInput } from '../components';
 import { pt } from '../constants/translate';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { usePlacesAutocomplete } from '../hooks/usePlacesAutocomplete';
+import { FlatList } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/core';
+import { pages } from '../constants';
 
 export function Search() {
-  const [textSearch, setTextSearch] = useState('');
+  const { searchValue, setSearchValue, places } = usePlacesAutocomplete();
+  const navigation = useNavigation();
+
+  function handleClear() {
+    setSearchValue('');
+    navigation.navigate(pages.CITIES_SAVE);
+  }
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Container>
-        <SearchInput
-          placeholder={pt.searchCityInputPlaceHolder}
-          onChangeText={setTextSearch}
-          blurOnSubmit={true}
-          value={textSearch}
-        />
-        <Content>
-          <SearchCityCard cityName={'Fortaleza'} country={'Brasil'} />
-        </Content>
-      </Container>
-    </TouchableWithoutFeedback>
+    <Container>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <>
+          <SearchInput
+            placeholder={pt.searchCityInputPlaceHolder}
+            onChangeText={setSearchValue}
+            blurOnSubmit={true}
+            value={searchValue}
+            handleClear={handleClear}
+          />
+          <Content>
+            <FlatList
+              data={places}
+              showsVerticalScrollIndicator={false}
+              numColumns={1}
+              keyExtractor={({ place_id }) => place_id}
+              initialNumToRender={12}
+              maxToRenderPerBatch={12}
+              windowSize={5}
+              renderItem={({ item }) => (
+                <SearchCityCard
+                  cityName={item.city}
+                  country={item.country}
+                  key={item.place_id}
+                />
+              )}
+            />
+          </Content>
+        </>
+      </TouchableWithoutFeedback>
+    </Container>
   );
 }

@@ -3,7 +3,7 @@ import { TextInputProps } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { colors } from '../styles';
 import {
-  SearchIcon,
+  CloseIcon,
   Wrapper,
   StyledSearchInput,
   IconButton,
@@ -35,7 +35,7 @@ export function SearchInput({
         onChangeText={onChangeText}
       />
       <IconButton onPress={handleClear}>
-        <SearchIcon />
+        <CloseIcon />
       </IconButton>
     </Wrapper>
   );

@@ -23,7 +23,7 @@ export const IconButton = styled.TouchableOpacity`
   margin-left: ${horizontalPixel(10)}px;
 `;
 
-export const SearchIcon = styled(AntDesign).attrs(() => ({
+export const CloseIcon = styled(AntDesign).attrs(() => ({
   name: 'close',
   size: 20,
   color: colors.white,

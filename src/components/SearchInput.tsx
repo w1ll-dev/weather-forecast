@@ -1,6 +1,5 @@
 import React from 'react';
 import { TextInputProps } from 'react-native';
-import { useNavigation } from '@react-navigation/core';
 import { colors } from '../styles';
 import {
   CloseIcon,

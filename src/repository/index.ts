@@ -1,5 +1,6 @@
 import { requestAdapter } from './adapters/requestAdapter';
-import { googleApibaseUrl } from './constants';
+import { googleApibaseUrl, openweatherApibaseUrl } from './constants';
+import { OPEN_WEATHER_KEY } from '../constants';
 import {
   PlaceAutocompleteApiResponseProtocol,
   PlaceAutocompleteProtocol,
@@ -13,6 +14,31 @@ export async function getPlacesAutocomplete(
 ): Promise<PlaceAutocompleteProtocol[]> {
   const inputFixed = input.replace(/\s+/g, '+');
   const query = `${googleApibaseUrl}/autocomplete/json?input=${inputFixed}&types=(cities)&language=pt-br&key=${GOOGLE_SEARCH_API_KEY}`;
+  try {
+    const response: PlaceAutocompleteApiResponseProtocol = await requestAdapter(
+      query
+    );
+    const { predictions } = response;
+    const placesList = predictions.map(
+      ({ terms, place_id }) =>
+        new PlaceAutocomplete(
+          place_id,
+          terms[0].value,
+          terms[terms.length - 1].value
+        )
+    );
+    return placesList;
+  } catch (error) {
+    throw new ServerError();
+  }
+}
+
+export async function getPlaceWeather(
+  lat: string,
+  lon: string
+): Promise<PlaceAutocompleteProtocol[]> {
+  const query = `${openweatherApibaseUrl}?lat=${lat}&lon=${lon}&exclude=minutely,hourly,alerts&units=metric&&lang=pt&appid=${OPEN_WEATHER_KEY}`;
+
   try {
     const response: PlaceAutocompleteApiResponseProtocol = await requestAdapter(
       query

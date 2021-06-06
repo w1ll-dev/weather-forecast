@@ -12,7 +12,7 @@ to run the application you can follow the following steps
 <sup>
 GOOGLE_SEARCH_API_KEY = YOUR GOOGLE API KEY HERE
 OPEN_WEATHER_MAP_KEY = YOUR OPEN WEATHER MAP API KEY HERE
-<sup>
+</sup>
 4. After that you can run yarn install command to install the packages and finally yarn start to run the application on your emulator or mobile device
 
 

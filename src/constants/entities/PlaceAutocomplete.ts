@@ -1,9 +1,10 @@
-import { PlaceAutocompleteProtocol } from '..';
+import { PlaceAutocompleteProtocol } from '../protocols';
 import { PlaceWeatherForecast } from './PlaceWeatherForecast';
 import {
   PlaceWeatherForecastProtocol,
   OpenWeatherApiResponseProtocol,
 } from '../protocols';
+import { idiom, pt } from '../translate';
 
 export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   constructor(
@@ -16,26 +17,58 @@ export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   private _lng?: number;
   private _placeWeatherForecast: PlaceWeatherForecastProtocol[] = [];
 
-  addLat(lat: number) {
+  public addLat(lat: number) {
     this._lat = lat;
   }
 
-  addLng(lng: number) {
+  public addLng(lng: number) {
     this._lng = lng;
   }
 
-  addPlaceWeatherForecast(
+  private convertDate(dateTime: number, forecastIndex: number) {
+    const daysOfTheWeek = [
+      pt.sundayLabel,
+      pt.mondayLabel,
+      pt.tuesdayLabel,
+      pt.wednesdayLabel,
+      pt.thrusdayLabel,
+      pt.fridayLabel,
+      pt.saturdayLabel,
+    ];
+
+    function dayAndDate(secs: number) {
+      var t = new Date(Date.UTC(1970, 0, 1)); // Epoch
+      t.setUTCSeconds(secs);
+      return {
+        weekDayIndex: t.getDay(),
+        monthDate: t.toLocaleDateString(idiom),
+      };
+    }
+    let weekDay = '';
+    const { monthDate, weekDayIndex } = dayAndDate(dateTime);
+    if (forecastIndex === 0 || forecastIndex === 1) {
+      weekDay = forecastIndex === 0 ? pt.todayLabel : pt.tomorrowLabel;
+    } else {
+      weekDay = daysOfTheWeek[weekDayIndex];
+    }
+    return { weekDay, monthDate };
+  }
+
+  public addPlaceWeatherForecast(
     weatherForecastResponse: OpenWeatherApiResponseProtocol
   ) {
     this._placeWeatherForecast = weatherForecastResponse.daily.map(
-      ({ dt, temp: { day, min, max }, weather }) => {
+      ({ dt, temp: { day, min, max }, weather }, index) => {
         const { description } = weather[0];
 
         const descriptionCapitalized =
           description.split('')[0].toUpperCase() + description.slice(1);
 
+        const { weekDay, monthDate } = this.convertDate(dt, index);
         return new PlaceWeatherForecast(
           dt,
+          weekDay,
+          monthDate,
           descriptionCapitalized,
           Math.round(day),
           Math.round(min),
@@ -45,7 +78,7 @@ export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
     );
   }
 
-  dataToStorage() {
+  public dataToStorage() {
     return {
       city: this.city,
       country: this.country,

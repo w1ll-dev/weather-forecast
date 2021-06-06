@@ -12,8 +12,9 @@ import {
   TemperatureRange,
   Temperature,
 } from '../styles/components/CityCurrentWeatherCard';
-import HeartIcon from './svg/HeartFill';
-import { Text } from 'react-native';
+import HeartFillIcon from './svg/HeartFill';
+import HeartIcon from './svg/Heart';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface CityCurrentWeatherCardProps {
   cityName: string;
@@ -22,6 +23,8 @@ interface CityCurrentWeatherCardProps {
   minTemp: number;
   maxTemp: number;
   temperature: number;
+  addCityToFavorites: any;
+  isFavorite: boolean;
 }
 
 export function CityCurrentWeatherCard({
@@ -31,6 +34,8 @@ export function CityCurrentWeatherCard({
   minTemp,
   maxTemp,
   temperature,
+  addCityToFavorites,
+  isFavorite,
 }: CityCurrentWeatherCardProps) {
   return (
     <WeatherWrapper style={boxShadow}>
@@ -46,7 +51,9 @@ export function CityCurrentWeatherCard({
       </CardColumn>
       <CardColumn>
         <Temperature>{`${temperature}º`}</Temperature>
-        <HeartIcon />
+        <TouchableOpacity onPress={addCityToFavorites}>
+          {isFavorite ? <HeartFillIcon /> : <HeartIcon />}
+        </TouchableOpacity>
       </CardColumn>
     </WeatherWrapper>
   );

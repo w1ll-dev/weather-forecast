@@ -11,6 +11,7 @@ import {
   CardColumn,
   TemperatureRange,
   Temperature,
+  CardButton,
 } from '../styles/components/CityCurrentWeatherCard';
 import HeartFillIcon from './svg/HeartFill';
 import HeartIcon from './svg/Heart';
@@ -40,9 +41,9 @@ export function CityCurrentWeatherCard({
   onPress,
 }: CityCurrentWeatherCardProps) {
   return (
-    <TouchableOpacity onPress={onPress} activeOpacity={onPress ? 0.8 : 1}>
-      <WeatherWrapper style={boxShadow}>
-        <CardColumn leftColumn={true}>
+    <WeatherWrapper style={boxShadow}>
+      <CardColumn leftColumn={true}>
+        <CardButton onPress={onPress} activeOpacity={onPress ? 0.8 : 1}>
           <CardContainer>
             <CardTitle>{title}</CardTitle>
             <CardSubtitle>{subTitle}</CardSubtitle>
@@ -51,16 +52,19 @@ export function CityCurrentWeatherCard({
             <WeatherDescription>{weatherDescription}</WeatherDescription>
             <TemperatureRange>{`${minTemp}º - ${maxTemp}º`}</TemperatureRange>
           </CardContainer>
-        </CardColumn>
-        <CardColumn leftColumn={false}>
-          <Temperature>{`${temperature}º`}</Temperature>
-          {typeof isFavorite == 'boolean' && (
-            <TouchableOpacity onPress={addCityToFavorites}>
-              {isFavorite ? <HeartFillIcon /> : <HeartIcon />}
-            </TouchableOpacity>
-          )}
-        </CardColumn>
-      </WeatherWrapper>
-    </TouchableOpacity>
+        </CardButton>
+      </CardColumn>
+      <CardColumn leftColumn={false}>
+        <Temperature>{`${temperature}º`}</Temperature>
+        {typeof isFavorite == 'boolean' && (
+          <TouchableOpacity
+            onPress={addCityToFavorites}
+            style={{ position: 'relative' }}
+          >
+            {isFavorite ? <HeartFillIcon /> : <HeartIcon />}
+          </TouchableOpacity>
+        )}
+      </CardColumn>
+    </WeatherWrapper>
   );
 }

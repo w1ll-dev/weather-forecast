@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { colors, fonts } from '..';
-import { verticalPixel } from '../../hooks/pixelConvert';
+import { horizontalPixel, verticalPixel } from '../../hooks/pixelConvert';
 import { Wrapper } from './SearchCityCard';
 
 export const WeatherWrapper = styled(Wrapper)`
@@ -34,4 +34,10 @@ export const Temperature = styled.Text`
   font-family: ${fonts.heading};
   color: ${colors.orange};
   margin-top: ${verticalPixel(7)}px;
+`;
+
+export const CardButton = styled.TouchableOpacity`
+  justify-content: space-between;
+  flex-grow: 1;
+  width: ${horizontalPixel(245)}px;
 `;

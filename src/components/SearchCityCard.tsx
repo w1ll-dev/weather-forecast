@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   Wrapper,
-  CityLabel,
-  CountryLabel,
+  CardTitle,
+  CardSubtitle,
   AddCityButton,
   AddCityLabel,
-  CityInfo,
+  CardContainer,
   boxShadow,
 } from '../styles/components/SearchCityCard';
 import { pt } from '../constants/translate';
@@ -23,10 +23,10 @@ export function SearchCityCard({
 }: SearchCityCardProps) {
   return (
     <Wrapper style={boxShadow}>
-      <CityInfo>
-        <CityLabel>{cityName}</CityLabel>
-        <CountryLabel>{country}</CountryLabel>
-      </CityInfo>
+      <CardContainer>
+        <CardTitle>{cityName}</CardTitle>
+        <CardSubtitle>{country}</CardSubtitle>
+      </CardContainer>
       <AddCityButton onPress={saveCity}>
         <AddCityLabel>{pt.addCityLabel}</AddCityLabel>
       </AddCityButton>

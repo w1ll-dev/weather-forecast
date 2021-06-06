@@ -1,9 +1,10 @@
+import { useNavigation } from '@react-navigation/core';
 import AppLoading from 'expo-app-loading';
 import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import AppBar from '../components/AppBar';
 import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
-import { PlaceAutocomplete, pt } from '../constants';
+import { pages, PlaceAutocomplete, pt } from '../constants';
 import usePlacesSaved from '../hooks/usePlacesSaved';
 import { Container, Content } from '../styles/components/Common';
 import {
@@ -16,9 +17,19 @@ export function CitiesSave() {
   const { placesSaved, isLoadingFromStorage, changeFavoriteStatus } =
     usePlacesSaved();
 
+  const navigation = useNavigation();
+
+  function handleSelect(place: PlaceAutocomplete) {
+    navigation.navigate(pages.CITY_WEATHER_FORECAST, place);
+  }
+
+  function handleAppBarClick() {
+    navigation.navigate(pages.SEARCH);
+  }
+
   return (
     <Container>
-      <AppBar />
+      <AppBar title={pt.appBarTitle} rightAction={handleAppBarClick} />
       <Content>
         {isLoadingFromStorage ? (
           <AppLoading autoHideSplash={false} />
@@ -43,13 +54,14 @@ export function CitiesSave() {
                   addCityToFavorites={async () =>
                     await changeFavoriteStatus(item)
                   }
-                  cityName={city}
-                  country={country}
+                  title={city}
+                  subTitle={country}
                   weatherDescription={description}
                   minTemp={minTemp}
                   maxTemp={maxTemp}
                   temperature={dayTemp}
                   isFavorite={isFavorite}
+                  onPress={() => handleSelect(item)}
                 />
               );
             }}

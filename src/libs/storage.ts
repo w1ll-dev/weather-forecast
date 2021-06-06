@@ -17,7 +17,7 @@ export async function savePlaceOnStorage(
 
     const newCity = {
       [place.place_id]: {
-        data: place,
+        data: place.dataToStorage(),
       },
     };
 
@@ -38,16 +38,44 @@ export async function loadStoragePlaces(): Promise<PlaceAutocomplete[]> {
     const data = await AsyncStorage.getItem(citiesStorageKey);
     const savedCities = data ? (JSON.parse(data) as StorageCityProtocol) : {};
 
-    const savedCitiesSorted = Object.keys(savedCities).map(
-      (place_id) =>
-        new PlaceAutocomplete(
-          savedCities[place_id].data.place_id,
-          savedCities[place_id].data.city,
-          savedCities[place_id].data.country
-        )
-    );
+    let savedCitiesSorted: PlaceAutocomplete[] = [];
+
+    Object.keys(savedCities).forEach((place_id) => {
+      const place = new PlaceAutocomplete(
+        savedCities[place_id].data.place_id,
+        savedCities[place_id].data.city,
+        savedCities[place_id].data.country,
+        savedCities[place_id].data.isFavorite
+      );
+      place.isFavorite
+        ? savedCitiesSorted.unshift(place)
+        : savedCitiesSorted.push(place);
+    });
 
     return savedCitiesSorted;
+  } catch (error) {
+    throw new StorageError();
+  }
+}
+
+export async function toggleCityFavoriteStatus(
+  place: PlaceAutocomplete
+): Promise<void> {
+  try {
+    const data = await AsyncStorage.getItem(citiesStorageKey);
+    const cities = data ? (JSON.parse(data) as StorageCityProtocol) : {};
+
+    Object.keys(cities).forEach((place_id) => {
+      if (place_id === place.place_id)
+        cities[place_id].data.isFavorite = !cities[place_id].data.isFavorite;
+    });
+
+    await AsyncStorage.setItem(
+      citiesStorageKey,
+      JSON.stringify({
+        ...cities,
+      })
+    );
   } catch (error) {
     throw new StorageError();
   }

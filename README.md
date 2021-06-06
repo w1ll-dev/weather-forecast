@@ -9,10 +9,11 @@ to run the application you can follow the following steps
 2. Go to the root of the project and create an .env file to insert the environment variables;
 3. In the .env file create the variables GOOGLE_SEARCH_API_KEY and OPEN_WEATHER_MAP_KEY as follows:
 
-<sup>
+```
 GOOGLE_SEARCH_API_KEY = YOUR GOOGLE API KEY HERE
 OPEN_WEATHER_MAP_KEY = YOUR OPEN WEATHER MAP API KEY HERE
-</sup>
+```
+
 4. After that you can run yarn install command to install the packages and finally yarn start to run the application on your emulator or mobile device
 
 

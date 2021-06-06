@@ -13,15 +13,15 @@ export const Wrapper = styled.View`
   border-radius: ${verticalPixel(5)}px;
 `;
 
-export const CityInfo = styled.View``;
+export const CardContainer = styled.View``;
 
-export const CityLabel = styled.Text`
+export const CardTitle = styled.Text`
   font-family: ${fonts.heading};
   color: ${colors.dark87};
   font-size: ${verticalPixel(24)}px;
 `;
 
-export const CountryLabel = styled.Text`
+export const CardSubtitle = styled.Text`
   font-family: ${fonts.text};
   color: ${colors.dark87};
   font-size: ${verticalPixel(14)}px;

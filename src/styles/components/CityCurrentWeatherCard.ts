@@ -8,8 +8,13 @@ export const WeatherWrapper = styled(Wrapper)`
   justify-content: space-between;
 `;
 
-export const CardColumn = styled.View`
+interface CardColumnProps {
+  leftColumn: boolean;
+}
+
+export const CardColumn = styled.View<CardColumnProps>`
   justify-content: space-between;
+  align-items: ${({ leftColumn }) => (leftColumn ? 'flex-start' : 'flex-end')};
 `;
 
 export const WeatherDescription = styled.Text`

@@ -1,6 +1,6 @@
 import { useIsFocused } from '@react-navigation/core';
 import { useEffect, useState } from 'react';
-import { PlaceAutocomplete } from '../constants';
+import { PlaceAutocomplete, PlaceAutocompleteProtocol } from '../constants';
 import { loadStoragePlaces, toggleCityFavoriteStatus } from '../libs';
 import { getPlaceWeatherForecast } from '../repository';
 
@@ -8,6 +8,8 @@ export default function usePlacesSaved() {
   const [placesSaved, setPlacesSaved] = useState<PlaceAutocomplete[]>([]);
   const [isLoadingFromStorage, setIsLoadingFromStorage] = useState(false);
   const [lastToggleValue, setLastToggleValue] = useState(false);
+  const [placeToToggleFavorite, setPlaceToToggleFavorite] =
+    useState<PlaceAutocomplete>();
 
   const isFocused = useIsFocused();
 
@@ -23,14 +25,19 @@ export default function usePlacesSaved() {
     setIsLoadingFromStorage(false);
   }
 
-  async function changeFavoriteStatus(place: PlaceAutocomplete) {
+  async function changeFavoriteStatus(place?: PlaceAutocomplete) {
+    if (!place) return;
     await toggleCityFavoriteStatus(place);
     setLastToggleValue(!lastToggleValue);
   }
 
   useEffect(() => {
+    changeFavoriteStatus(placeToToggleFavorite);
+  }, [placeToToggleFavorite]);
+
+  useEffect(() => {
     loadCities();
   }, [isFocused, lastToggleValue]);
 
-  return { placesSaved, isLoadingFromStorage, changeFavoriteStatus };
+  return { placesSaved, isLoadingFromStorage, setPlaceToToggleFavorite };
 }

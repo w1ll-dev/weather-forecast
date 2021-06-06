@@ -4,7 +4,8 @@ import {
   PlaceWeatherForecastProtocol,
   OpenWeatherApiResponseProtocol,
 } from '../protocols';
-import { idiom, pt } from '../translate';
+import { pt } from '../translate';
+import { daysOfTheWeek, months } from '../DateHelpers';
 
 export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   constructor(
@@ -26,28 +27,20 @@ export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   }
 
   private convertDate(dateTime: number, forecastIndex: number) {
-    const daysOfTheWeek = [
-      pt.sundayLabel,
-      pt.mondayLabel,
-      pt.tuesdayLabel,
-      pt.wednesdayLabel,
-      pt.thrusdayLabel,
-      pt.fridayLabel,
-      pt.saturdayLabel,
-    ];
-
     function dayAndDate(secs: number) {
       var t = new Date(Date.UTC(1970, 0, 1)); // Epoch
       t.setUTCSeconds(secs);
+
       return {
         weekDayIndex: t.getDay(),
-        monthDate: t.toLocaleDateString(idiom),
+        monthDate: `${t.getDate()} de ${months[t.getMonth()]}`,
       };
     }
     let weekDay = '';
     const { monthDate, weekDayIndex } = dayAndDate(dateTime);
     if (forecastIndex === 0 || forecastIndex === 1) {
-      weekDay = forecastIndex === 0 ? pt.todayLabel : pt.tomorrowLabel;
+      weekDay =
+        forecastIndex === 0 ? pt.days.todayLabel : pt.days.tomorrowLabel;
     } else {
       weekDay = daysOfTheWeek[weekDayIndex];
     }

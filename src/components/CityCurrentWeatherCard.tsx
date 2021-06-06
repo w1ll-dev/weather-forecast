@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  CityLabel,
-  CountryLabel,
-  CityInfo,
+  CardTitle,
+  CardSubtitle,
+  CardContainer,
   boxShadow,
 } from '../styles/components/SearchCityCard';
 import {
@@ -17,44 +17,50 @@ import HeartIcon from './svg/Heart';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 interface CityCurrentWeatherCardProps {
-  cityName: string;
-  country: string;
+  title: string;
+  subTitle: string;
   weatherDescription: string;
   minTemp: number;
   maxTemp: number;
   temperature: number;
-  addCityToFavorites: any;
-  isFavorite: boolean;
+  addCityToFavorites?: any;
+  isFavorite?: boolean;
+  onPress?: any;
 }
 
 export function CityCurrentWeatherCard({
-  cityName,
-  country,
+  title,
+  subTitle,
   weatherDescription,
   minTemp,
   maxTemp,
   temperature,
   addCityToFavorites,
   isFavorite,
+  onPress,
 }: CityCurrentWeatherCardProps) {
   return (
-    <WeatherWrapper style={boxShadow}>
-      <CardColumn>
-        <CityInfo>
-          <CityLabel>{cityName}</CityLabel>
-          <CountryLabel>{country}</CountryLabel>
-        </CityInfo>
-        <CityInfo>
-          <WeatherDescription>{weatherDescription}</WeatherDescription>
-          <TemperatureRange>{`${minTemp}º - ${maxTemp}º`}</TemperatureRange>
-        </CityInfo>
-      </CardColumn>
-      <CardColumn>
-        <Temperature>{`${temperature}º`}</Temperature>
-        <TouchableOpacity onPress={addCityToFavorites}>
-          {isFavorite ? <HeartFillIcon /> : <HeartIcon />}
-        </TouchableOpacity>
-      </CardColumn>
-    </WeatherWrapper>
+    <TouchableOpacity onPress={onPress} activeOpacity={onPress ? 0.8 : 1}>
+      <WeatherWrapper style={boxShadow}>
+        <CardColumn leftColumn={true}>
+          <CardContainer>
+            <CardTitle>{title}</CardTitle>
+            <CardSubtitle>{subTitle}</CardSubtitle>
+          </CardContainer>
+          <CardContainer>
+            <WeatherDescription>{weatherDescription}</WeatherDescription>
+            <TemperatureRange>{`${minTemp}º - ${maxTemp}º`}</TemperatureRange>
+          </CardContainer>
+        </CardColumn>
+        <CardColumn leftColumn={false}>
+          <Temperature>{`${temperature}º`}</Temperature>
+          {typeof isFavorite == 'boolean' && (
+            <TouchableOpacity onPress={addCityToFavorites}>
+              {isFavorite ? <HeartFillIcon /> : <HeartIcon />}
+            </TouchableOpacity>
+          )}
+        </CardColumn>
+      </WeatherWrapper>
+    </TouchableOpacity>
   );
 }

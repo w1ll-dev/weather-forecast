@@ -2,6 +2,16 @@
   "appBarTitle": "Cidades",
   "searchCityInputPlaceHolder": "Pesquise",
   "addCityLabel": "ADICIONAR",
+  "todayLabel": "Hoje",
+  "tomorrowLabel": "Amanhã",
+  "sundayLabel": "Domingo",
+  "mondayLabel": "Segunda",
+  "tuesdayLabel": "Terca",
+  "wednesdayLabel": "Quarta",
+  "thrusdayLabel": "Quinta",
+  "fridayLabel": "Sexta",
+  "saturdayLabel": "Sábado",
+  "weatherForecastMessage": "Previsão para os próximos 7 dias",
   "emptyCitiesList": {
     "title": "Parece que você ainda não\nadicionou uma cidade",
     "message": "Tente adicionar uma cidade usando o botão\nde busca"

@@ -7,7 +7,7 @@ export function usePlacesAutocomplete() {
   const [places, setPlaces] = useState<PlaceAutocomplete[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const [loadingPlaces, setLoadingPlaces] = useState(false);
-  const debouncedSearch = useDebounce(searchForPlaces, 500);
+  const debouncedSearch = useDebounce(searchForPlaces, 200);
 
   async function searchForPlaces() {
     if (searchValue === '') {

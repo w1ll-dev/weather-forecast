@@ -1,22 +1,36 @@
-import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { pages, pt } from '../constants';
-import { Title, Wrapper, SearchIcon } from '../styles/components/AppBar';
+import {
+  Title,
+  Wrapper,
+  SearchIcon,
+  BackIcon,
+} from '../styles/components/AppBar';
 
-export default function AppBar() {
-  const navigation = useNavigation();
+interface AppBarProps {
+  title: string;
+  rightAction?: any;
+  leftAction?: any;
+}
 
-  function handleClick() {
-    navigation.navigate(pages.SEARCH);
-  }
-
+export default function AppBar({
+  title,
+  rightAction,
+  leftAction,
+}: AppBarProps) {
   return (
     <Wrapper>
-      <Title>{pt.appBarTitle}</Title>
-      <TouchableOpacity onPress={handleClick}>
-        <SearchIcon />
-      </TouchableOpacity>
+      {leftAction && (
+        <TouchableOpacity onPress={leftAction}>
+          <BackIcon />
+        </TouchableOpacity>
+      )}
+      <Title hasLeftAction={leftAction}>{title}</Title>
+      {rightAction && (
+        <TouchableOpacity onPress={rightAction}>
+          <SearchIcon />
+        </TouchableOpacity>
+      )}
     </Wrapper>
   );
 }

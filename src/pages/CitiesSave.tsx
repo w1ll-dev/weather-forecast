@@ -14,7 +14,7 @@ import {
 } from '../styles/pages/CitiesSave';
 
 export function CitiesSave() {
-  const { placesSaved, isLoadingFromStorage, changeFavoriteStatus } =
+  const { placesSaved, isLoadingFromStorage, setPlaceToToggleFavorite } =
     usePlacesSaved();
 
   const navigation = useNavigation();
@@ -51,9 +51,7 @@ export function CitiesSave() {
 
               return (
                 <CityCurrentWeatherCard
-                  addCityToFavorites={async () =>
-                    await changeFavoriteStatus(item)
-                  }
+                  addCityToFavorites={() => setPlaceToToggleFavorite(item)}
                   title={city}
                   subTitle={country}
                   weatherDescription={description}

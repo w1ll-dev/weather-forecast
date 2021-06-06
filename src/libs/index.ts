@@ -1,3 +1,7 @@
-import { loadStoragePlaces, savePlaceOnStorage } from './storage';
+import {
+  loadStoragePlaces,
+  savePlaceOnStorage,
+  toggleCityFavoriteStatus,
+} from './storage';
 
-export { loadStoragePlaces, savePlaceOnStorage };
+export { loadStoragePlaces, savePlaceOnStorage, toggleCityFavoriteStatus };

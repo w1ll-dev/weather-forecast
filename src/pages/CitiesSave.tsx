@@ -1,52 +1,58 @@
 import AppLoading from 'expo-app-loading';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import AppBar from '../components/AppBar';
 import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
-import { PlaceAutocomplete } from '../constants';
-import { loadStoragePlaces } from '../libs';
-import { getPlaceWeatherForecast } from '../repository';
+import { PlaceAutocomplete, pt } from '../constants';
+import usePlacesSaved from '../hooks/usePlacesSaved';
 import { Container, Content } from '../styles/components/Common';
+import {
+  EmptyListContainer,
+  EmptyListTitle,
+  EmptyListMessage,
+} from '../styles/pages/CitiesSave';
 
 export function CitiesSave() {
-  const [placesSaved, setPlacesSaved] = useState<PlaceAutocomplete[]>([]);
-
-  async function loadCities() {
-    const placesSaved = await loadStoragePlaces();
-    const placeWithCompleteInfoList = [];
-    for (const place of placesSaved) {
-      const placeWithCompleteInfo = await getPlaceWeatherForecast(place);
-      placeWithCompleteInfoList.push(placeWithCompleteInfo);
-    }
-    setPlacesSaved(placeWithCompleteInfoList);
-  }
-
-  useEffect(() => {
-    loadCities();
-  }, []);
+  const { placesSaved, isLoadingFromStorage, changeFavoriteStatus } =
+    usePlacesSaved();
 
   return (
     <Container>
       <AppBar />
       <Content>
-        {placesSaved.length === 0 ? (
-          <AppLoading />
+        {isLoadingFromStorage ? (
+          <AppLoading autoHideSplash={false} />
+        ) : placesSaved.length === 0 ? (
+          <EmptyListContainer>
+            <EmptyListTitle>{pt.emptyCitiesList.title}</EmptyListTitle>
+            <EmptyListMessage>{pt.emptyCitiesList.message}</EmptyListMessage>
+          </EmptyListContainer>
         ) : (
           <FlatList
             data={placesSaved}
             showsVerticalScrollIndicator={false}
             numColumns={1}
             keyExtractor={({ place_id }) => place_id}
-            renderItem={({ item }: { item: PlaceAutocomplete }) => (
-              <CityCurrentWeatherCard
-                cityName={item.city}
-                country={item.country}
-                weatherDescription={item.placeWeatherForecast[0].description}
-                minTemp={item.placeWeatherForecast[0].minTemp}
-                maxTemp={item.placeWeatherForecast[0].maxTemp}
-                temperature={item.placeWeatherForecast[0].dayTemp}
-              />
-            )}
+            renderItem={({ item }: { item: PlaceAutocomplete }) => {
+              const { city, country, isFavorite } = item;
+              const { description, minTemp, maxTemp, dayTemp } =
+                item.placeWeatherForecast[0];
+
+              return (
+                <CityCurrentWeatherCard
+                  addCityToFavorites={async () =>
+                    await changeFavoriteStatus(item)
+                  }
+                  cityName={city}
+                  country={country}
+                  weatherDescription={description}
+                  minTemp={minTemp}
+                  maxTemp={maxTemp}
+                  temperature={dayTemp}
+                  isFavorite={isFavorite}
+                />
+              );
+            }}
           />
         )}
       </Content>

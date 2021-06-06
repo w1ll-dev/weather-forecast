@@ -1,13 +1,11 @@
 import React from 'react';
-import { Container } from '../styles/components/Common';
-import { Content } from '../styles/components/Common';
+import { Container, Content } from '../styles/components/Common';
 import { SearchCityCard, SearchInput } from '../components';
 import { pt } from '../constants/translate';
 import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { usePlacesAutocomplete } from '../hooks/usePlacesAutocomplete';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/core';
-import { pages } from '../constants';
 import { savePlaceOnStorage } from '../libs';
 
 export function Search() {
@@ -16,7 +14,7 @@ export function Search() {
 
   function handleClear() {
     setSearchValue('');
-    navigation.navigate(pages.CITIES_SAVE);
+    navigation.goBack();
   }
 
   async function handleSavePlace(cityPlaceId: string) {
@@ -31,6 +29,7 @@ export function Search() {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <>
           <SearchInput
+            autoFocus={true}
             placeholder={pt.searchCityInputPlaceHolder}
             onChangeText={setSearchValue}
             blurOnSubmit={true}

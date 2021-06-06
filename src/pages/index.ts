@@ -1,5 +1,5 @@
 import { CitiesSave } from './CitiesSave';
-import { CityDetails } from './CityDetails';
+import { CityWeatherForecast } from './CityWeatherForecast';
 import { Search } from './Search';
 
-export { CitiesSave, CityDetails, Search };
+export { CitiesSave, CityWeatherForecast, Search };

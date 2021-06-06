@@ -9,7 +9,8 @@ export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   constructor(
     public place_id: string,
     public city: string,
-    public country: string
+    public country: string,
+    public isFavorite: boolean = false
   ) {}
   private _lat?: number;
   private _lng?: number;
@@ -42,6 +43,15 @@ export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
         );
       }
     );
+  }
+
+  dataToStorage() {
+    return {
+      city: this.city,
+      country: this.country,
+      place_id: this.place_id,
+      isFavorite: this.isFavorite,
+    };
   }
 
   get lat() {

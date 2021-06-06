@@ -8,7 +8,10 @@ const StackRoutes = () => (
   <Navigator headerMode='none'>
     <Screen name={pages.CITIES_SAVE} component={CitiesSave} />
     <Screen name={pages.SEARCH} component={Search} />
-    <Screen name={pages.CITY_DETAILS} component={CityWeatherForecast} />
+    <Screen
+      name={pages.CITY_WEATHER_FORECAST}
+      component={CityWeatherForecast}
+    />
   </Navigator>
 );
 

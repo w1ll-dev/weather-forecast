@@ -1,10 +1,54 @@
+import { useNavigation, useRoute } from '@react-navigation/core';
 import React from 'react';
-import { View, Text } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import AppBar from '../components/AppBar';
+import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
+import { PlaceAutocomplete, pt } from '../constants';
+import { PlaceWeatherForecastProtocol } from '../constants/protocols';
+import { Container, Content } from '../styles/components/Common';
+import { WeatherForecastMessage } from '../styles/pages/CityWeatherForecast';
 
 export function CityWeatherForecast() {
+  const route = useRoute();
+  const navigation = useNavigation();
+
+  const place = route.params as PlaceAutocomplete;
+
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>CityDetails</Text>
-    </View>
+    <Container>
+      <AppBar title={place.city} leftAction={navigation.goBack} />
+      <WeatherForecastMessage>
+        {pt.weatherForecastMessage}
+      </WeatherForecastMessage>
+      <Content>
+        <FlatList
+          data={place.placeWeatherForecast}
+          showsVerticalScrollIndicator={false}
+          numColumns={1}
+          keyExtractor={({ dateTime }) => `${dateTime}`}
+          renderItem={({ item }: { item: PlaceWeatherForecastProtocol }) => {
+            const {
+              weekDay,
+              monthDate,
+              dayTemp,
+              description,
+              minTemp,
+              maxTemp,
+            } = item;
+
+            return (
+              <CityCurrentWeatherCard
+                title={weekDay}
+                subTitle={monthDate}
+                weatherDescription={description}
+                minTemp={minTemp}
+                maxTemp={maxTemp}
+                temperature={dayTemp}
+              />
+            );
+          }}
+        />
+      </Content>
+    </Container>
   );
 }

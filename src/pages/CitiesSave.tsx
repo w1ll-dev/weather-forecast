@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
 import AppLoading from 'expo-app-loading';
 import React from 'react';
+import { AppBar, dispatchCustomAlert } from '../components';
 import { FlatList } from 'react-native-gesture-handler';
-import AppBar from '../components/AppBar';
 import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
 import { pages, PlaceAutocomplete, pt } from '../constants';
 import usePlacesSaved from '../hooks/usePlacesSaved';
@@ -14,8 +14,12 @@ import {
 } from '../styles/pages/CitiesSave';
 
 export function CitiesSave() {
-  const { placesSaved, isLoadingFromStorage, setPlaceToToggleFavorite } =
-    usePlacesSaved();
+  const {
+    placesSaved,
+    isLoadingFromStorage,
+    setPlaceToToggleFavorite,
+    isConnected,
+  } = usePlacesSaved();
 
   const navigation = useNavigation();
 
@@ -24,6 +28,7 @@ export function CitiesSave() {
   }
 
   function handleAppBarClick() {
+    if (!isConnected) return dispatchCustomAlert();
     navigation.navigate(pages.SEARCH);
   }
 

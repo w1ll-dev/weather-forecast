@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { PlaceAutocompleteProtocol, StorageCityProtocol } from '../constants';
 import { PlaceAutocomplete } from '../constants';
 import { citiesStorageKey } from '../repository/constants';
-import { StorageError } from '../constants/errors/StorageError';
+import StorageError from '../constants/errors/StorageError';
 
 export async function savePlaceOnStorage(
   place: PlaceAutocomplete

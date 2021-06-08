@@ -2,6 +2,13 @@
   "appBarTitle": "Cidades",
   "searchCityInputPlaceHolder": "Pesquise",
   "addCityLabel": "ADICIONAR",
+  "errors": {
+    "connection": {
+      "title": "Sem Internet 😢",
+      "subtitle": "Por Favor, verifique sua conexão.",
+      "rightButton": "ok"
+    }
+  },
   "days": {
     "todayLabel": "Hoje",
     "tomorrowLabel": "Amanhã",

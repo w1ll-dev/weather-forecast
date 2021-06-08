@@ -11,6 +11,8 @@ interface DailyWeather {
   weather: Weather[];
 }
 
-export interface OpenWeatherApiResponseProtocol {
+interface OpenWeatherApiResponseProtocol {
   daily: DailyWeather[];
 }
+
+export default OpenWeatherApiResponseProtocol;

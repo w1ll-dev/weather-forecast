@@ -1,10 +1,12 @@
+import { useNetInfo } from '@react-native-community/netinfo';
 import { useIsFocused } from '@react-navigation/core';
 import { useEffect, useState } from 'react';
-import { PlaceAutocomplete, PlaceAutocompleteProtocol } from '../constants';
+import { PlaceAutocomplete } from '../constants';
 import { loadStoragePlaces, toggleCityFavoriteStatus } from '../libs';
 import { getPlaceWeatherForecast } from '../repository';
 
-export default function usePlacesSaved() {
+function usePlacesSaved() {
+  const { isConnected } = useNetInfo();
   const [placesSaved, setPlacesSaved] = useState<PlaceAutocomplete[]>([]);
   const [isLoadingFromStorage, setIsLoadingFromStorage] = useState(false);
   const [lastToggleValue, setLastToggleValue] = useState(false);
@@ -36,8 +38,16 @@ export default function usePlacesSaved() {
   }, [placeToToggleFavorite]);
 
   useEffect(() => {
+    if (!isConnected) return setPlacesSaved([]);
     loadCities();
-  }, [isFocused, lastToggleValue]);
+  }, [isFocused, lastToggleValue, isConnected]);
 
-  return { placesSaved, isLoadingFromStorage, setPlaceToToggleFavorite };
+  return {
+    placesSaved,
+    isLoadingFromStorage,
+    setPlaceToToggleFavorite,
+    isConnected,
+  };
 }
+
+export default usePlacesSaved;

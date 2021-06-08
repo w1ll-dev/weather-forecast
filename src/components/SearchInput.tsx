@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TextInputProps } from 'react-native';
 import { colors } from '../styles';
 import {
@@ -16,7 +16,7 @@ interface SearchInputProps extends TextInputProps {
   handleClear: any;
 }
 
-export function SearchInput({
+function SearchInput({
   handleClear,
   placeholder,
   onChangeText,
@@ -39,3 +39,5 @@ export function SearchInput({
     </Wrapper>
   );
 }
+
+export default SearchInput;

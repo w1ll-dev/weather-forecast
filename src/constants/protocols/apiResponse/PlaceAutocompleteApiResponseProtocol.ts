@@ -8,6 +8,8 @@ interface PlaceAutocompleteTerm {
   value: string;
 }
 
-export interface PlaceAutocompleteApiResponseProtocol {
+interface PlaceAutocompleteApiResponseProtocol {
   predictions: PlaceAutocompleteInfo[];
 }
+
+export default PlaceAutocompleteApiResponseProtocol;

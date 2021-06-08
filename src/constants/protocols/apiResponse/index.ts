@@ -1,6 +1,6 @@
-import { PlaceAutocompleteApiResponseProtocol } from './PlaceAutocompleteApiResponseProtocol';
-import { OpenWeatherApiResponseProtocol } from './OpenWeatherApiResponseProtocol';
-import { PlaceDetailsApiResponseProtocol } from './PlaceDetailsApiResponseProtocol';
+import PlaceAutocompleteApiResponseProtocol from './PlaceAutocompleteApiResponseProtocol';
+import OpenWeatherApiResponseProtocol from './OpenWeatherApiResponseProtocol';
+import PlaceDetailsApiResponseProtocol from './PlaceDetailsApiResponseProtocol';
 
 export {
   PlaceAutocompleteApiResponseProtocol,

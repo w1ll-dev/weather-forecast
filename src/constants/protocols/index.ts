@@ -3,9 +3,9 @@ import {
   OpenWeatherApiResponseProtocol,
   PlaceDetailsApiResponseProtocol,
 } from './apiResponse';
-import { PlaceAutocompleteProtocol } from './PlaceAutocompleteProtocol';
-import { StorageCityProtocol } from './StorageCityProtocol';
-import { PlaceWeatherForecastProtocol } from './PlaceWeatherForecastProtocol';
+import PlaceAutocompleteProtocol from './PlaceAutocompleteProtocol';
+import StorageCityProtocol from './StorageCityProtocol';
+import PlaceWeatherForecastProtocol from './PlaceWeatherForecastProtocol';
 import { Idiom } from './translate';
 
 export {

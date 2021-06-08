@@ -1,5 +1,5 @@
 import { PlaceAutocompleteProtocol } from '../protocols';
-import { PlaceWeatherForecast } from './PlaceWeatherForecast';
+import PlaceWeatherForecast from './PlaceWeatherForecast';
 import {
   PlaceWeatherForecastProtocol,
   OpenWeatherApiResponseProtocol,
@@ -7,7 +7,7 @@ import {
 import { pt } from '../translate';
 import { daysOfTheWeek, months } from '../DateHelpers';
 
-export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
+class PlaceAutocomplete implements PlaceAutocompleteProtocol {
   constructor(
     public place_id: string,
     public city: string,
@@ -92,3 +92,5 @@ export class PlaceAutocomplete implements PlaceAutocompleteProtocol {
     return this._placeWeatherForecast;
   }
 }
+
+export default PlaceAutocomplete;

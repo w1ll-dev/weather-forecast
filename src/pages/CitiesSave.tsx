@@ -1,21 +1,28 @@
+import * as React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import AppLoading from 'expo-app-loading';
-import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import AppBar from '../components/AppBar';
-import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
+import {
+  AppBar,
+  CityCurrentWeatherCard,
+  dispatchCustomAlert,
+} from '../components';
 import { pages, PlaceAutocomplete, pt } from '../constants';
 import usePlacesSaved from '../hooks/usePlacesSaved';
 import { Container, Content } from '../styles/components/Common';
 import {
   EmptyListContainer,
-  EmptyListTitle,
   EmptyListMessage,
+  EmptyListTitle,
 } from '../styles/pages/CitiesSave';
 
-export function CitiesSave() {
-  const { placesSaved, isLoadingFromStorage, setPlaceToToggleFavorite } =
-    usePlacesSaved();
+function CitiesSave() {
+  const {
+    placesSaved,
+    isLoadingFromStorage,
+    setPlaceToToggleFavorite,
+    isConnected,
+  } = usePlacesSaved();
 
   const navigation = useNavigation();
 
@@ -24,6 +31,12 @@ export function CitiesSave() {
   }
 
   function handleAppBarClick() {
+    if (!isConnected)
+      return dispatchCustomAlert({
+        title: pt.errors.connection.title,
+        subtitle: pt.errors.connection.subtitle,
+        rightButtonText: pt.errors.connection.rightButton,
+      });
     navigation.navigate(pages.SEARCH);
   }
 
@@ -31,7 +44,12 @@ export function CitiesSave() {
     <Container>
       <AppBar title={pt.appBarTitle} rightAction={handleAppBarClick} />
       <Content>
-        {isLoadingFromStorage ? (
+        {!isConnected ? (
+          <EmptyListContainer>
+            <EmptyListTitle>{pt.errors.connection.title}</EmptyListTitle>
+            <EmptyListMessage>{pt.errors.connection.subtitle}</EmptyListMessage>
+          </EmptyListContainer>
+        ) : isLoadingFromStorage ? (
           <AppLoading autoHideSplash={false} />
         ) : placesSaved.length === 0 ? (
           <EmptyListContainer>
@@ -69,3 +87,5 @@ export function CitiesSave() {
     </Container>
   );
 }
+
+export default CitiesSave;

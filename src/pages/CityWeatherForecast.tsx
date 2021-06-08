@@ -1,14 +1,13 @@
+import * as React from 'react';
 import { useNavigation, useRoute } from '@react-navigation/core';
-import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
-import AppBar from '../components/AppBar';
-import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
+import { AppBar, CityCurrentWeatherCard } from '../components';
 import { PlaceAutocomplete, pt } from '../constants';
 import { PlaceWeatherForecastProtocol } from '../constants/protocols';
 import { Container, Content } from '../styles/components/Common';
 import { WeatherForecastMessage } from '../styles/pages/CityWeatherForecast';
 
-export function CityWeatherForecast() {
+function CityWeatherForecast() {
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -52,3 +51,5 @@ export function CityWeatherForecast() {
     </Container>
   );
 }
+
+export default CityWeatherForecast;

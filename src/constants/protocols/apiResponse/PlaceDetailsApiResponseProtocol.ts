@@ -1,4 +1,4 @@
-export interface PlaceDetailsApiResponseProtocol {
+interface PlaceDetailsApiResponseProtocol {
   result: {
     geometry: {
       location: {
@@ -8,3 +8,5 @@ export interface PlaceDetailsApiResponseProtocol {
     };
   };
 }
+
+export default PlaceDetailsApiResponseProtocol;

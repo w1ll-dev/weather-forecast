@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   Title,
@@ -13,11 +13,7 @@ interface AppBarProps {
   leftAction?: any;
 }
 
-export default function AppBar({
-  title,
-  rightAction,
-  leftAction,
-}: AppBarProps) {
+function AppBar({ title, rightAction, leftAction }: AppBarProps) {
   return (
     <Wrapper>
       {leftAction && (
@@ -34,3 +30,5 @@ export default function AppBar({
     </Wrapper>
   );
 }
+
+export default AppBar;

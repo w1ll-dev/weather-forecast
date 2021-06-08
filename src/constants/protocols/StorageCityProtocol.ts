@@ -1,7 +1,9 @@
-import { PlaceAutocompleteProtocol } from './PlaceAutocompleteProtocol';
+import PlaceAutocompleteProtocol from './PlaceAutocompleteProtocol';
 
-export interface StorageCityProtocol {
+interface StorageCityProtocol {
   [id: string]: {
     data: PlaceAutocompleteProtocol;
   };
 }
+
+export default StorageCityProtocol;

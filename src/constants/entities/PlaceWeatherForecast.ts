@@ -1,6 +1,6 @@
 import { PlaceWeatherForecastProtocol } from '../protocols';
 
-export class PlaceWeatherForecast implements PlaceWeatherForecastProtocol {
+class PlaceWeatherForecast implements PlaceWeatherForecastProtocol {
   constructor(
     public dateTime: number,
     public weekDay: string,
@@ -11,3 +11,5 @@ export class PlaceWeatherForecast implements PlaceWeatherForecastProtocol {
     public maxTemp: number
   ) {}
 }
+
+export default PlaceWeatherForecast;

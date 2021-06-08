@@ -1,4 +1,4 @@
-import { ServerError } from './ServerError';
-import { StorageError } from './StorageError';
+import ServerError from './ServerError';
+import StorageError from './StorageError';
 
 export { ServerError, StorageError };

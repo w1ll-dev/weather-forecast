@@ -1,7 +1,7 @@
 # Weather Forecast
 
 This application is a solution for forecasting the weather of cities around the planet. The application interacts with the google api to find search results by name of cities and after choosing a city it uses the latitude and longitude data to request the current and future weather forecast of the city in question from the open weather api . For its development I used typescript, react native, styled components, react hook technologies, among others. You can see the current status of the application on You Tube<br/>
-[1.0.0](https://youtu.be/RzNhC-6aVMg)<br/>
+[1.0.0 - Main](https://youtu.be/RzNhC-6aVMg)<br/>
 [1.0.1 - Network](https://www.youtube.com/watch?v=oI83JQlhSas)
 
 ## Get Started

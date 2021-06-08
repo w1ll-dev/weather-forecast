@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   Wrapper,
   CardTitle,
@@ -16,11 +16,7 @@ interface SearchCityCardProps {
   saveCity: any;
 }
 
-export function SearchCityCard({
-  cityName,
-  country,
-  saveCity,
-}: SearchCityCardProps) {
+function SearchCityCard({ cityName, country, saveCity }: SearchCityCardProps) {
   return (
     <Wrapper style={boxShadow}>
       <CardContainer>
@@ -33,3 +29,5 @@ export function SearchCityCard({
     </Wrapper>
   );
 }
+
+export default SearchCityCard;

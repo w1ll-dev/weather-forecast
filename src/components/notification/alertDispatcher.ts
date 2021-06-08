@@ -7,7 +7,7 @@ interface AlertProps {
   rightButtonAction?(): void;
 }
 
-export function dispatchCustomAlert({
+export default function dispatchCustomAlert({
   title,
   subtitle,
   rightButtonText,

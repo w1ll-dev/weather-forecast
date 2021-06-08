@@ -1,16 +1,19 @@
 import { useNavigation } from '@react-navigation/core';
 import AppLoading from 'expo-app-loading';
 import React from 'react';
-import { AppBar, dispatchCustomAlert } from '../components';
 import { FlatList } from 'react-native-gesture-handler';
-import { CityCurrentWeatherCard } from '../components/CityCurrentWeatherCard';
+import {
+  AppBar,
+  CityCurrentWeatherCard,
+  dispatchCustomAlert,
+} from '../components';
 import { pages, PlaceAutocomplete, pt } from '../constants';
 import usePlacesSaved from '../hooks/usePlacesSaved';
 import { Container, Content } from '../styles/components/Common';
 import {
   EmptyListContainer,
-  EmptyListTitle,
   EmptyListMessage,
+  EmptyListTitle,
 } from '../styles/pages/CitiesSave';
 
 export function CitiesSave() {

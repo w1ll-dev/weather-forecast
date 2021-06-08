@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {
   CardTitle,
   CardSubtitle,
@@ -29,7 +29,7 @@ interface CityCurrentWeatherCardProps {
   onPress?: any;
 }
 
-export function CityCurrentWeatherCard({
+function CityCurrentWeatherCard({
   title,
   subTitle,
   weatherDescription,
@@ -68,3 +68,5 @@ export function CityCurrentWeatherCard({
     </WeatherWrapper>
   );
 }
+
+export default CityCurrentWeatherCard;

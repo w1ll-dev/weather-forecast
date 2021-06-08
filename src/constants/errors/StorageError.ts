@@ -1,6 +1,8 @@
-export class StorageError extends Error {
+class StorageError extends Error {
   constructor() {
     super('StorageError');
     this.name = 'StorageError';
   }
 }
+
+export default StorageError;

@@ -38,8 +38,9 @@ export default function usePlacesSaved() {
   }, [placeToToggleFavorite]);
 
   useEffect(() => {
+    if (!isConnected) return setPlacesSaved([]);
     loadCities();
-  }, [isFocused, lastToggleValue]);
+  }, [isFocused, lastToggleValue, isConnected]);
 
   return {
     placesSaved,

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getPlacesAutocomplete } from '../repository';
 import { PlaceAutocomplete } from '../constants/entities';
-import { useDebounce } from './useDebounce';
+import useDebounce from './useDebounce';
 
-export function usePlacesAutocomplete() {
+function usePlacesAutocomplete() {
   const [places, setPlaces] = useState<PlaceAutocomplete[]>([]);
   const [searchValue, setSearchValue] = useState('');
   const [loadingPlaces, setLoadingPlaces] = useState(false);
@@ -32,3 +32,5 @@ export function usePlacesAutocomplete() {
     loadingPlaces,
   };
 }
+
+export default usePlacesAutocomplete;

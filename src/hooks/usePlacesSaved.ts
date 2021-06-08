@@ -5,7 +5,7 @@ import { PlaceAutocomplete } from '../constants';
 import { loadStoragePlaces, toggleCityFavoriteStatus } from '../libs';
 import { getPlaceWeatherForecast } from '../repository';
 
-export default function usePlacesSaved() {
+function usePlacesSaved() {
   const { isConnected } = useNetInfo();
   const [placesSaved, setPlacesSaved] = useState<PlaceAutocomplete[]>([]);
   const [isLoadingFromStorage, setIsLoadingFromStorage] = useState(false);
@@ -49,3 +49,5 @@ export default function usePlacesSaved() {
     isConnected,
   };
 }
+
+export default usePlacesSaved;

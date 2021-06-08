@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-export function useDebounce(fn: any, delay: number) {
+function useDebounce(fn: any, delay: number) {
   const timeoutRef = useRef(0);
 
   function debouncedFn(...params: any) {
@@ -13,3 +13,5 @@ export function useDebounce(fn: any, delay: number) {
 
   return debouncedFn;
 }
+
+export default useDebounce;

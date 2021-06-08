@@ -1,14 +1,14 @@
-import React from 'react';
+import * as React from 'react';
+import { Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Container, Content } from '../styles/components/Common';
 import { SearchCityCard, SearchInput } from '../components';
 import { pt } from '../constants/translate';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
-import { usePlacesAutocomplete } from '../hooks/usePlacesAutocomplete';
 import { FlatList } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/core';
 import { savePlaceOnStorage } from '../libs';
+import { usePlacesAutocomplete } from '../hooks';
 
-export function Search() {
+function Search() {
   const { searchValue, setSearchValue, places } = usePlacesAutocomplete();
   const navigation = useNavigation();
 
@@ -60,3 +60,5 @@ export function Search() {
     </Container>
   );
 }
+
+export default Search;

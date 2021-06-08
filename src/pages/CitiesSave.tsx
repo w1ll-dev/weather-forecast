@@ -1,6 +1,6 @@
+import * as React from 'react';
 import { useNavigation } from '@react-navigation/core';
 import AppLoading from 'expo-app-loading';
-import React from 'react';
 import { FlatList } from 'react-native-gesture-handler';
 import {
   AppBar,
@@ -16,7 +16,7 @@ import {
   EmptyListTitle,
 } from '../styles/pages/CitiesSave';
 
-export function CitiesSave() {
+function CitiesSave() {
   const {
     placesSaved,
     isLoadingFromStorage,
@@ -87,3 +87,5 @@ export function CitiesSave() {
     </Container>
   );
 }
+
+export default CitiesSave;

@@ -28,7 +28,12 @@ export function CitiesSave() {
   }
 
   function handleAppBarClick() {
-    if (!isConnected) return dispatchCustomAlert();
+    if (!isConnected)
+      return dispatchCustomAlert({
+        title: pt.errors.connection.title,
+        subtitle: pt.errors.connection.subtitle,
+        rightButtonText: pt.errors.connection.rightButton,
+      });
     navigation.navigate(pages.SEARCH);
   }
 
@@ -36,7 +41,12 @@ export function CitiesSave() {
     <Container>
       <AppBar title={pt.appBarTitle} rightAction={handleAppBarClick} />
       <Content>
-        {isLoadingFromStorage ? (
+        {!isConnected ? (
+          <EmptyListContainer>
+            <EmptyListTitle>{pt.errors.connection.title}</EmptyListTitle>
+            <EmptyListMessage>{pt.errors.connection.subtitle}</EmptyListMessage>
+          </EmptyListContainer>
+        ) : isLoadingFromStorage ? (
           <AppLoading autoHideSplash={false} />
         ) : placesSaved.length === 0 ? (
           <EmptyListContainer>
